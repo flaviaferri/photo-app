@@ -8,15 +8,15 @@ import Main from "../components/Main";
 import Footer from "../components/Footer";
 import { createApi, toJson } from "unsplash-js";
 
+const unsplash = createApi({
+  accessKey: process.env.NEXT_PUBLIC_API_KEY,
+});
+
 export default function Home() {
   const router = useRouter();
   const [search, setSearch] = useState(router.query.search || "");
   const [pictures, setPictures] = useState([]);
   const [page, setPage] = useState(1);
-
-  const unsplash = createApi({
-    accessKey: process.env.NEXT_PUBLIC_API_KEY,
-  });
 
   // Search from input
   useEffect(() => {
