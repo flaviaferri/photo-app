@@ -20,7 +20,8 @@ export default function Home() {
   // Search from input
   useEffect(() => {
     const searchPhotos = async () => {
-      router.push(`/?search=${search}`, undefined, { shallow: true });
+      if (search)
+        router.push(`/?search=${search}`, undefined, { shallow: true });
 
       unsplash.search
         .getPhotos({ query: search, page, perPage: 16 })
@@ -33,7 +34,7 @@ export default function Home() {
     searchPhotos();
   }, [search]);
 
-  // Search from URL
+  //Search from URL
   useEffect(() => {
     const getDailyPhotos = async () => {
       unsplash.photos
