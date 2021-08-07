@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Title from "../Title";
 import { FiHeart } from "react-icons/fi";
 
@@ -57,24 +58,36 @@ const HeartIcon = styled(FiHeart)(
   `
 );
 
-export default function Photo({ pictures }) {
+export default function Photos({ pictures, handleLoadMore }) {
   if (pictures === []) {
     return null;
   }
 
+  const handleLoading = () => {
+    handleLoadMore();
+  };
+
   return (
     <>
       <Title>Daily Pictures</Title>
-      <Wrapper>
-        {pictures.map((picture) => (
-          <PicWrapper key={picture.id}>
-            <Pic url={picture.urls.small} />
-            <WrapperIcon>
-              <HeartIcon size={21} />
-            </WrapperIcon>
-          </PicWrapper>
-        ))}
-      </Wrapper>
+
+      <InfiniteScroll
+        dataLength={pictures.length}
+        next={handleLoading}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+      >
+        <Wrapper>
+          {pictures.map((picture) => (
+            <PicWrapper key={picture.id}>
+              <Pic url={picture.urls.small} />
+              <WrapperIcon>
+                <HeartIcon size={21} />
+              </WrapperIcon>
+            </PicWrapper>
+          ))}
+        </Wrapper>
+      </InfiniteScroll>
     </>
   );
 }

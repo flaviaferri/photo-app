@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Head from "next/head";
 import Input from "../components/Input";
-import Photo from "../components/Photo";
+import Photos from "../components/Photos";
 import { createApi, toJson } from "unsplash-js";
 
 const Main = styled.div(
@@ -15,15 +15,17 @@ const Main = styled.div(
 export default function Home() {
   const [search, setSearch] = useState("");
   const [pictures, setPictures] = useState([]);
+  const [page, setPage] = useState(1);
 
   const unsplash = createApi({
     accessKey: "ggPLSD6QWCQ6G4IttYDd4zVvcw6iVznaVTLiDxocKKM",
   });
 
+  // Initial search
   useEffect(() => {
     const searchPhotos = async () => {
       unsplash.search
-        .getPhotos({ query: search })
+        .getPhotos({ query: search, page })
         .then(toJson)
         .then((json) => {
           setPictures(json.response.results);
@@ -31,7 +33,25 @@ export default function Home() {
     };
 
     searchPhotos();
-  }, [search, unsplash.search]);
+  }, [search]);
+
+  // Load more
+  useEffect(() => {
+    const searchPhotos = async () => {
+      unsplash.search
+        .getPhotos({ query: search, page })
+        .then(toJson)
+        .then((json) => {
+          setPictures((pictures) => [...pictures, ...json.response.results]);
+        });
+    };
+
+    searchPhotos();
+  }, [page]);
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <div>
@@ -43,7 +63,7 @@ export default function Home() {
 
       <Main>
         <Input handleSubmit={setSearch} />
-        <Photo pictures={pictures} />
+        <Photos pictures={pictures} handleLoadMore={handleLoadMore} />
       </Main>
 
       <footer></footer>
