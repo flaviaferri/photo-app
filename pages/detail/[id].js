@@ -8,7 +8,7 @@ import Back from "../../components/Icons/Back";
 import Footer from "../../components/Footer";
 
 const unsplash = createApi({
-  accessKey: "cDNJxPq6O_eVRv4YQII_WcC5cJww3chv5pHoGTvsTYY",
+  accessKey: process.env.NEXT_PUBLIC_API_KEY,
 });
 
 const BackIcon = styled(Back)(
