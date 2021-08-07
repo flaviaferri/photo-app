@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Title from "../Title";
 import { FiHeart } from "react-icons/fi";
 
 const Wrapper = styled.div(
@@ -70,8 +69,6 @@ export default function Photos({ pictures, handleLoadMore }) {
 
   return (
     <>
-      <Title>Daily Pictures</Title>
-
       <InfiniteScroll
         dataLength={pictures.length}
         next={handleLoading}

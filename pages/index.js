@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Head from "next/head";
 import Input from "../components/Input";
 import Photos from "../components/Photos";
+import Title from "../components/Title";
 import { createApi, toJson } from "unsplash-js";
 
 const Main = styled.div(
@@ -20,6 +21,22 @@ export default function Home() {
   const unsplash = createApi({
     accessKey: "ggPLSD6QWCQ6G4IttYDd4zVvcw6iVznaVTLiDxocKKM",
   });
+
+  // Initial search
+  useEffect(() => {
+    const getDailyPhotos = async () => {
+      unsplash.photos
+        .getRandom({
+          count: 16,
+        })
+        .then(toJson)
+        .then((json) => {
+          setPictures(json.response);
+        });
+    };
+
+    getDailyPhotos();
+  }, []);
 
   // Initial search
   useEffect(() => {
@@ -63,6 +80,7 @@ export default function Home() {
 
       <Main>
         <Input handleSubmit={setSearch} />
+        <Title>{search || "Daily"} Pictures</Title>
         <Photos pictures={pictures} handleLoadMore={handleLoadMore} />
       </Main>
 
