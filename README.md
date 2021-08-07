@@ -2,7 +2,7 @@
 
 ## 🔖 Description
 
-🌐 Throught this application you can search and favorite photos from [Unsplash](https://unsplash.com/), the internet’s source of freely-usable images.
+🌐 Through this application, you can search and favorite photos from [Unsplash](https://unsplash.com/), the internet’s source of freely-usable images.
 
 ---
 
