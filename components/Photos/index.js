@@ -67,6 +67,16 @@ export default function Photos({ pictures, handleLoadMore }) {
     handleLoadMore();
   };
 
+  const handleFav = (id) => {
+    const myFavorites = localStorage.getItem("PhotosApp");
+
+    if (myFavorites) {
+      localStorage.setItem("PhotosApp", `${id}|${myFavorites}`);
+      return;
+    }
+    localStorage.setItem("PhotosApp", `${id}`);
+  };
+
   return (
     <>
       <InfiniteScroll
@@ -82,7 +92,11 @@ export default function Photos({ pictures, handleLoadMore }) {
                 <Pic url={picture.urls.small} />
               </Link>
 
-              <WrapperIcon>
+              <WrapperIcon
+                onClick={() => {
+                  handleFav(picture.id);
+                }}
+              >
                 <HeartIcon size={21} />
               </WrapperIcon>
             </PicWrapper>

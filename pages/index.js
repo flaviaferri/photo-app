@@ -1,28 +1,39 @@
 import { useState, useEffect } from "react";
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Input from "../components/Input";
 import Photos from "../components/Photos";
 import Title from "../components/Title";
+import Main from "../components/Main";
 import { createApi, toJson } from "unsplash-js";
 
-const Main = styled.div(
-  () => css`
-    padding: 1.6rem;
-  `
-);
-
 export default function Home() {
-  const [search, setSearch] = useState("");
+  const router = useRouter();
+  const [search, setSearch] = useState(router.query.search || "");
   const [pictures, setPictures] = useState([]);
   const [page, setPage] = useState(1);
 
   const unsplash = createApi({
-    accessKey: "ggPLSD6QWCQ6G4IttYDd4zVvcw6iVznaVTLiDxocKKM",
+    accessKey: "cDNJxPq6O_eVRv4YQII_WcC5cJww3chv5pHoGTvsTYY",
   });
 
-  // Initial search
+  // Search from input
+  useEffect(() => {
+    const searchPhotos = async () => {
+      router.push(`/?search=${search}`, undefined, { shallow: true });
+
+      unsplash.search
+        .getPhotos({ query: search, page, perPage: 16 })
+        .then(toJson)
+        .then((json) => {
+          setPictures(json.response.results);
+        });
+    };
+
+    searchPhotos();
+  }, [search]);
+
+  // Search from URL
   useEffect(() => {
     const getDailyPhotos = async () => {
       unsplash.photos
@@ -35,23 +46,8 @@ export default function Home() {
         });
     };
 
-    if (search) return;
     getDailyPhotos();
-  }, [page]);
-
-  // Initial search
-  useEffect(() => {
-    const searchPhotos = async () => {
-      unsplash.search
-        .getPhotos({ query: search, page, perPage: 16 })
-        .then(toJson)
-        .then((json) => {
-          setPictures(json.response.results);
-        });
-    };
-
-    searchPhotos();
-  }, [search]);
+  }, []);
 
   // Load more
   useEffect(() => {
