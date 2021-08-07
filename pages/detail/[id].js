@@ -17,6 +17,7 @@ const BackIcon = styled(Back)(
     top: 2rem;
     left: 2rem;
     filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 0.7));
+    cursor: pointer;
   `
 );
 
