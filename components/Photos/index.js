@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { FiHeart } from "react-icons/fi";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const Wrapper = styled.div(
   () => css`
@@ -50,7 +50,8 @@ const WrapperIcon = styled.div(
     display: flex;
   `
 );
-const HeartIcon = styled(FiHeart)(
+
+const OutlineHeart = styled(AiOutlineHeart)(
   () => css`
     height: 1.4rem;
     width: 1.6rem;
@@ -58,24 +59,57 @@ const HeartIcon = styled(FiHeart)(
   `
 );
 
+const FillHeart = styled(AiFillHeart)(
+  ({ theme }) => css`
+    height: 1.4rem;
+    width: 1.6rem;
+    margin: auto;
+    color: ${theme.colors.blue};
+  `
+);
+
 export default function Photos({ pictures, handleLoadMore }) {
-  if (pictures === []) {
-    return null;
-  }
+  const [isFavorite, setIsFavorite] = useState("");
 
   const handleLoading = () => {
     handleLoadMore();
+  };
+
+  const checkIsFavorite = (id) => {
+    const myFavorites = localStorage.getItem("PhotosApp");
+    return myFavorites?.split("|")?.find((favorite) => favorite === id);
   };
 
   const handleFav = (id) => {
     const myFavorites = localStorage.getItem("PhotosApp");
 
     if (myFavorites) {
+      // Check if photo is already there favorite
+      if (myFavorites.split("|").find((favorite) => favorite === id)) {
+        let newFavorites = myFavorites
+          .split("|")
+          .filter((favorite) => favorite !== id);
+
+        newFavorites = newFavorites.join("|");
+        localStorage.setItem("PhotosApp", newFavorites);
+        setIsFavorite(newFavorites);
+        return;
+      }
+
       localStorage.setItem("PhotosApp", `${id}|${myFavorites}`);
+      setIsFavorite(`${id}|${myFavorites}`);
       return;
     }
+
     localStorage.setItem("PhotosApp", `${id}`);
+    setIsFavorite(`${id}`);
   };
+
+  debugger;
+
+  if (pictures.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -86,18 +120,22 @@ export default function Photos({ pictures, handleLoadMore }) {
         style={{ overflow: "hidden" }}
       >
         <Wrapper>
-          {pictures.map((picture) => (
-            <PicWrapper key={picture.id}>
-              <Link href={`/detail/${picture.id}`}>
-                <Pic url={picture.urls.small} />
+          {pictures?.map((picture) => (
+            <PicWrapper key={picture?.id}>
+              <Link href={`/detail/${picture?.id}`}>
+                <Pic url={picture?.urls?.small} />
               </Link>
 
               <WrapperIcon
                 onClick={() => {
-                  handleFav(picture.id);
+                  handleFav(picture?.id);
                 }}
               >
-                <HeartIcon size={21} />
+                {checkIsFavorite(picture?.id) ? (
+                  <FillHeart size={20} />
+                ) : (
+                  <OutlineHeart size={20} />
+                )}
               </WrapperIcon>
             </PicWrapper>
           ))}

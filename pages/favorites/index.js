@@ -40,7 +40,8 @@ export default function Detail() {
     };
 
     const myFavorites = localStorage.getItem("PhotosApp");
-    getPhotos(myFavorites.split("|"));
+
+    if (myFavorites) getPhotos(myFavorites.split("|"));
   }, []);
 
   return (
