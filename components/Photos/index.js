@@ -75,7 +75,7 @@ export default function Photos({ pictures, handleLoadMore }) {
         dataLength={pictures.length}
         next={handleLoading}
         hasMore={true}
-        loader={<h4>Loading...</h4>}
+        style={{ overflow: "hidden" }}
       >
         <Wrapper>
           {pictures.map((picture) => (

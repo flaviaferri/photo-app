@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     const searchPhotos = async () => {
       unsplash.search
-        .getPhotos({ query: search, page })
+        .getPhotos({ query: search, page, perPage: 16 })
         .then(toJson)
         .then((json) => {
           setPictures(json.response.results);
