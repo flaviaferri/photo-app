@@ -4,6 +4,7 @@ import { theme } from "../styles/theme";
 import { ThemeProvider } from "@emotion/react";
 import "@fontsource/source-sans-pro";
 import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/600.css";
 import "@fontsource/source-sans-pro/700.css";
 
 const style = css`

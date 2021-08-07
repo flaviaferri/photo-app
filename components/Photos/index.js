@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import Link from "next/link";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Title from "../Title";
 import { FiHeart } from "react-icons/fi";
@@ -80,7 +81,10 @@ export default function Photos({ pictures, handleLoadMore }) {
         <Wrapper>
           {pictures.map((picture) => (
             <PicWrapper key={picture.id}>
-              <Pic url={picture.urls.small} />
+              <Link href={`/detail/${picture.id}`}>
+                <Pic url={picture.urls.small} />
+              </Link>
+
               <WrapperIcon>
                 <HeartIcon size={21} />
               </WrapperIcon>
