@@ -26,7 +26,15 @@ $ npm install
 $ npm run dev
 ```
 
-Note: For personal/professional use, please create your account and use your own token, see [here](https://unsplash.com/developers) for more details.
+## Configuration
+
+- First, you'll need to [create an account on Unsplash](https://unsplash.com/) if you don't have one already. Once that's done, follow [this steps](https://unsplash.com/documentation#getting-started) to register your app.
+
+- After that you'll to copy your Access Key from your Unsplash app, create a `.env.local` file and add the env var, example:
+
+```
+NEXT_PUBLIC_API_KEY="YOUR_ACCESS_KEY"
+```
 
 ---
 
