@@ -5,6 +5,7 @@ import Input from "../components/Input";
 import Photos from "../components/Photos";
 import Title from "../components/Title";
 import Main from "../components/Main";
+import Footer from "../components/Footer";
 import { createApi, toJson } from "unsplash-js";
 
 export default function Home() {
@@ -34,12 +35,13 @@ export default function Home() {
     searchPhotos();
   }, [search]);
 
-  //Search from URL
+  //Get daily photos
   useEffect(() => {
+    if (search) return;
     const getDailyPhotos = async () => {
       unsplash.photos
         .getRandom({
-          count: 16,
+          count: 24,
         })
         .then(toJson)
         .then((json) => {
@@ -82,7 +84,7 @@ export default function Home() {
         <Photos pictures={pictures} handleLoadMore={handleLoadMore} />
       </Main>
 
-      <footer></footer>
+      <Footer />
     </div>
   );
 }

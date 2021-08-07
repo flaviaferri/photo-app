@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import { createApi, toJson } from "unsplash-js";
 
 import Back from "../../components/Icons/Back";
+import Footer from "../../components/Footer";
 
 const unsplash = createApi({
   accessKey: "cDNJxPq6O_eVRv4YQII_WcC5cJww3chv5pHoGTvsTYY",
@@ -114,6 +115,7 @@ export default function Detail() {
           <Data>{picture?.likes || "Unknown"}</Data>
         </Column>
       </Row>
+      <Footer />
     </>
   );
 }

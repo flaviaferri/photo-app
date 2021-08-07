@@ -5,6 +5,7 @@ import Photos from "../../components/Photos";
 import Input from "../../components/Input";
 import Main from "../../components/Main";
 import Title from "../../components/Title";
+import Footer from "../../components/Footer";
 
 const unsplash = createApi({
   accessKey: "cDNJxPq6O_eVRv4YQII_WcC5cJww3chv5pHoGTvsTYY",
@@ -51,6 +52,7 @@ export default function Detail() {
         <Title>Favorites</Title>
         <Photos pictures={pictures} />
       </Main>
+      <Footer />
     </>
   );
 }

@@ -68,6 +68,12 @@ const FillHeart = styled(AiFillHeart)(
   `
 );
 
+const LinkElement = styled.a(
+  () => css`
+    text-decoration: none;
+  `
+);
+
 export default function Photos({ pictures, handleLoadMore }) {
   const [isFavorite, setIsFavorite] = useState("");
 
@@ -105,8 +111,6 @@ export default function Photos({ pictures, handleLoadMore }) {
     setIsFavorite(`${id}`);
   };
 
-  debugger;
-
   if (pictures.length === 0) {
     return null;
   }
@@ -122,8 +126,10 @@ export default function Photos({ pictures, handleLoadMore }) {
         <Wrapper>
           {pictures?.map((picture) => (
             <PicWrapper key={picture?.id}>
-              <Link href={`/detail/${picture?.id}`}>
-                <Pic url={picture?.urls?.small} />
+              <Link href={`/detail/${picture?.id}`} passHref>
+                <LinkElement>
+                  <Pic url={picture?.urls?.small} />
+                </LinkElement>
               </Link>
 
               <WrapperIcon
