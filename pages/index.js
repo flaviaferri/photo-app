@@ -21,24 +21,28 @@ export default function Home() {
   // Search from input
   useEffect(() => {
     const searchPhotos = async () => {
-      if (search)
-        router.push(`/?search=${search}`, undefined, { shallow: true });
+      console.log("Search from input");
+      router.push(`/?search=${search}`, undefined, { shallow: true });
 
       unsplash.search
         .getPhotos({ query: search, page, perPage: 16 })
         .then(toJson)
         .then((json) => {
+          setPictures([]);
           setPictures(json.response.results);
         });
     };
 
+    if (!search) return;
+
     searchPhotos();
   }, [search]);
 
-  //Get daily photos
+  // Get daily photos
   useEffect(() => {
     if (search) return;
     const getDailyPhotos = async () => {
+      console.log("Get daily photos");
       unsplash.photos
         .getRandom({
           count: 24,
@@ -55,6 +59,7 @@ export default function Home() {
   // Load more
   useEffect(() => {
     const searchPhotos = async () => {
+      console.log("Load more");
       unsplash.search
         .getPhotos({ query: search, page })
         .then(toJson)

@@ -41,6 +41,7 @@ const Pic = styled.div(
 const WrapperIcon = styled.div(
   ({ theme }) => css`
     position: absolute;
+    cursor: pointer;
     background-color: ${theme.colors.white};
     border-radius: 50%;
     height: 3.6rem;

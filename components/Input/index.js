@@ -37,6 +37,7 @@ const SearchIcon = styled(AiOutlineSearch)(
     position: absolute;
     right: 2rem;
     top: 1rem;
+    cursor: pointer;
   `
 );
 
@@ -59,7 +60,7 @@ export default function Input({ handleSubmit }) {
           onKeyDown={handleEnter}
           value={value}
         />
-        <SearchIcon size="25" />
+        <SearchIcon onClick={() => handleSubmit(value)} size="25" />
       </WrapperInput>
     </Wrapper>
   );
