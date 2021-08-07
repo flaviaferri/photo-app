@@ -31,12 +31,13 @@ export default function Home() {
         })
         .then(toJson)
         .then((json) => {
-          setPictures(json.response);
+          setPictures((pictures) => [...pictures, ...json.response]);
         });
     };
 
+    if (search) return;
     getDailyPhotos();
-  }, []);
+  }, [page]);
 
   // Initial search
   useEffect(() => {
